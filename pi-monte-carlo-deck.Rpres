@@ -1,0 +1,113 @@
+Monte Carlo simulation to estimate Pi
+========================================================
+author: Jamin Ragle 
+date: Sunday, July 26th, 2015
+
+### Summary
+Monte Carlo simulations are a tool that use random numbers to simulate various statistical outcomes. In this case we will attempt to estimate the number **pi** (`r pi`...). The following is a outline how this is done.
+
+Monte Carlo simulation to estimate Pi
+========================================================
+
+### The Challenge!
+
+```{r,echo=FALSE,warning=FALSE,message=FALSE}
+# Load libraries
+library(knitr)
+library(plotrix) # for draw.circle()
+library(grid)    # for grid()
+```
+
+```{r,echo=FALSE}
+unit_circle <- function(x,y) sqrt((x-0.5)^2 + (y-0.5)^2) <= 0.5
+pi_est <- function() 4*length(zed[zed])/num
+throw_darts <- function(n) {
+  num <<- n  # passed in number of attempts/points
+  ps <<- matrix(runif(2*num), ncol=2) # random xy points
+  zed <<- unit_circle(ps[,1], ps[,2]) # save inside/outside counts
+}
+draw_darts <- function() {
+  #num <- n  # passed in number of attempts/points
+  #zed <- z  # map of inside/outside circle
+  plot(c(0, 1), c(0,1), type = "n", asp = 1, main="The Dartboard",xlab='Unit Square/Circle',ylab='',yaxt='n',frame.plot = FALSE)
+rect(0,0,1,1,border='black')
+  draw.circle(0.5,0.5,0.5,border='black')
+  points(ps[!zed,1], ps[!zed,2], col='blue', pch=20) # outside points
+  points(ps[zed,1], ps[zed,2], col='green', pch=20)  # inside points
+}
+
+```
+
+Imagine if you will that you are playing a game of darts with your friend. The dartboard is hanging on a square piece of wood cut with the same diameter. Your friend boasts that they bet they could calculate the number **pi** by throwing darts randomly at the dartbard. 
+
+You are not sure you believe them, but decide to take them up on the challenge!
+
+***
+
+```{r,echo=FALSE}
+throw_darts(100)
+draw_darts()
+pi_est()
+```
+
+Throwing the darts!
+========================================================
+
+#### Lots of darts where thrown!
+```{r,echo=FALSE}
+throw_darts(10000)
+draw_darts()
+pi_est()
+```
+***
+### Like 30,000 darts!
+```{r,echo=FALSE}
+throw_darts(30000)
+draw_darts()
+pi_est()
+```
+
+Relationship of areas: circle and square
+========================================================
+
+You notice in the flurry of darts being thrown that your friend has been counting how many darts hit the inside of the circle, verses the outside. He keeps saying numbers that sound close to **pi**. You think you understand what the game is.
+
+Lets look at the relationship of the **unit circle** and **unit square**. We start the familiar example of finding the area of a circle, which is `pi*r^2`. Similarly the area of the square is defined as `2*r^2`. 
+
+***
+
+The ratio of the area of the circle to the area of the square is:
+
+```{r,eval=FALSE}
+area_cr = pi*r^2
+area_sq = 2*r^2
+
+# The ratio of areas
+p = area_cr/area_sq 
+  = (pi*r^2)/(2*r^2)
+  = pi/4
+    
+```
+
+```{r,echo=FALSE}
+pi/4
+```
+
+If we multiply that constant by 4, we just get **pi**, `r pi`. 
+
+More on Calculating the estimate of pi 
+========================================================
+
+As you can see from the previous slide the radius for a unit square and a circle cancel the term out always leaving the area inside to the outside of the circle a constant ratio `pi/4` which is `r pi/4`. 
+
+Another interesting to note, **Accuracy** of estimating **pi** goes up for large values of `N`. This is how our friend can caculate an estimate of **pi**. The more darts our friend throws, the closer we get to the actual value of **pi**.
+
+***
+
+```{r,echo=FALSE}
+plot(c(0,30000),c(-0.5,5), type = "n")
+abline(h=pi,col=2,lty=2)
+#sapply(1:5000,pi_est())
+```
+
+The Shiny app you can throw darts yourself! https://zombieprocess.shinyapps.io/pi-monte-carlo
