@@ -24,7 +24,7 @@ You are not sure you believe them, but decide to take them up on the challenge!
 ![plot of chunk unnamed-chunk-3](pi-monte-carlo-deck-figure/unnamed-chunk-3-1.png) 
 
 ```
-[1] 3.08
+[1] 3.16
 ```
 
 Throwing the darts!
@@ -34,14 +34,14 @@ Throwing the darts!
 ![plot of chunk unnamed-chunk-4](pi-monte-carlo-deck-figure/unnamed-chunk-4-1.png) 
 
 ```
-[1] 3.1516
+[1] 3.1524
 ```
 ***
 ### Like 30,000 darts!
 ![plot of chunk unnamed-chunk-5](pi-monte-carlo-deck-figure/unnamed-chunk-5-1.png) 
 
 ```
-[1] 3.149867
+[1] 3.1384
 ```
 
 Relationship of areas: circle and square

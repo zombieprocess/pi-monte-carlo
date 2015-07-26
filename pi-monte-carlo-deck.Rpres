@@ -30,12 +30,15 @@ draw_darts <- function() {
   #num <- n  # passed in number of attempts/points
   #zed <- z  # map of inside/outside circle
   plot(c(0, 1), c(0,1), type = "n", asp = 1, main="The Dartboard",xlab='Unit Square/Circle',ylab='',yaxt='n',frame.plot = FALSE)
-rect(0,0,1,1,border='black')
+  rect(0,0,1,1,border='black')
   draw.circle(0.5,0.5,0.5,border='black')
   points(ps[!zed,1], ps[!zed,2], col='blue', pch=20) # outside points
   points(ps[zed,1], ps[zed,2], col='green', pch=20)  # inside points
 }
-
+calc_pi <- function(n) {
+  throw_darts(n)
+  pi_est()
+}
 ```
 
 Imagine if you will that you are playing a game of darts with your friend. The dartboard is hanging on a square piece of wood cut with the same diameter. Your friend boasts that they bet they could calculate the number **pi** by throwing darts randomly at the dartbard. 
@@ -105,9 +108,10 @@ Another interesting to note, **Accuracy** of estimating **pi** goes up for large
 ***
 
 ```{r,echo=FALSE}
-plot(c(0,30000),c(-0.5,5), type = "n")
+plot(c(0,3000),c(-0.5,5), type = "n", main="Accuracy plot for estimate of pi", xlab='Number of throws', ylab='Value', frame.plot = FALSE)
 abline(h=pi,col=2,lty=2)
-#sapply(1:5000,pi_est())
+lines(sapply(1:3000,calc_pi))
+abline(h=pi,col=2,lty=1)
 ```
 
 The Shiny app you can throw darts yourself! https://zombieprocess.shinyapps.io/pi-monte-carlo
