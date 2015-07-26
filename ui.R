@@ -23,9 +23,9 @@ shinyUI(fluidPage(
                   value = 5000),
       # Animation with custom interval (in ms) to control speed,
       # plus looping
-      sliderInput("animation", "Looping Animation:", 1, 2000, 1,
-                  step = 10, animate=
-                    animationOptions(interval=300, loop=TRUE)),
+      #sliderInput("animation", "Looping Animation:", 1, 2000, 1,
+      #            step = 10, animate=
+      #              animationOptions(interval=300, loop=TRUE)),
       tableOutput("values")
     ),
 

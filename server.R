@@ -34,15 +34,17 @@ shinyServer(function(input, output) {
 
   mydata <- reactive({
     attempts <- input$attempts
-    animatation <- input$animation
+    #animatation <- input$animation
     pi_estimate <- 0
     pi_error <- 0
   })
   
   sliderValues <- reactive({
     data.frame(
-      Name  = c("Attempts","Animation","Pi Estimate"),
-      Value = c(input$attempts,input$animation,0))
+      #Name  = c("Attempts","Animation","Pi Estimate"),
+      #Value = c(input$attempts,input$animation,0))
+      Name  = c("Attempts"),
+      Value = c(input$attempts))
   })
   
   # Show the values using an HTML table
