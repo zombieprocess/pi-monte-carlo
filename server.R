@@ -10,27 +10,24 @@ library(grid)    # for grid()
 library(ggplot2) # make pretty later
 library(shiny)
 
-
-#unit_circle <- function(x,y) sqrt((x-0.5)^2 + (y-0.5)^2) <= 0.5
-#pi_est <- function(z,n) 4*length(z[z])/n
 unit_circle <- function(x,y) sqrt((x-0.5)^2 + (y-0.5)^2) <= 0.5
+pi_est <- function() 4*length(zed[zed])/num
 throw_darts <- function(n) {
   num <<- n  # passed in number of attempts/points
   ps <<- matrix(runif(2*num), ncol=2) # random xy points
   zed <<- unit_circle(ps[,1], ps[,2]) # save inside/outside counts
 }
-pi_est <- function() 4*length(zed[zed])/num
-
 draw_darts <- function() {
-  #num <- n  # passed in number of attempts/points
-  #zed <- z  # map of inside/outside circle
-  plot(c(0, 1), c(0,1), type = "n", asp = 1, main="The Dartboard",xlab='Unit Square/Circle',ylab='',yaxt='n',frame.plot = FALSE)
+  plot(c(0, 1), c(0,1), type = "n", asp = 1, main="The Dartboard",sub=paste("Pi Estimate: ",pi_est()),xlab='Unit Square/Circle',ylab='',yaxt='n',frame.plot = FALSE)
   rect(0,0,1,1,border='black')
   draw.circle(0.5,0.5,0.5,border='black')
   points(ps[!zed,1], ps[!zed,2], col='blue', pch=20) # outside points
   points(ps[zed,1], ps[zed,2], col='green', pch=20)  # inside points
 }
-
+calc_pi <- function(n) {
+  throw_darts(n)
+  pi_est()
+}
 
 
 shinyServer(function(input, output) {
@@ -63,6 +60,7 @@ shinyServer(function(input, output) {
     draw_darts()
     
     pi_estimate <- pi_est()
+    pi_estimate
     #sliderValues()[["Pi Estimate"]] <- pi_estimate
     #mydata().pi_estimate <- pi_estimate
     
